@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Niz Maria Roy | Engineering Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-dark: #070a13;
+    --bg-panel: rgba(13, 19, 34, 0.65); /* Transparent for glass effect */
+    --bg-panel-hover: rgba(19, 27, 47, 0.85);
+    --text-light: #f8fafc;
+    --text-muted: #94a3b8;
+    --accent-blue: #00f0ff;
+    --accent-teal: #00ffaa;
+    --border-color: rgba(0, 240, 255, 0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* =========================================
+     CLASSY ANIMATED BACKGROUND EFFECTS
+     ========================================= */
+  .bg-grid {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background-image: 
+      linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: -2;
+    pointer-events: none;
+  }
+
+  /* Floating Glowing Orbs */
+  .ambient-light {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(140px);
+    z-index: -1;
+    opacity: 0.15;
+    animation: float 15s infinite alternate ease-in-out;
+    pointer-events: none;
+  }
+
+  .light-1 {
+    top: -10%; left: -10%;
+    width: 50vw; height: 50vw;
+    background: var(--accent-blue);
+    animation-delay: 0s;
+  }
+
+  .light-2 {
+    bottom: -10%; right: -10%;
+    width: 45vw; height: 45vw;
+    background: var(--accent-teal);
+    animation-delay: -7s;
+  }
+
+  @keyframes float {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(50px, 80px) scale(1.2); }
+  }
+
+  /* Page Load Animation */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  h1, h2, h3, .mono { font-family: 'JetBrains Mono', monospace; }
+
+  a { color: var(--accent-blue); text-decoration: none; transition: 0.3s ease; }
+  a:hover { color: var(--accent-teal); text-shadow: 0 0 10px rgba(0, 255, 170, 0.5); }
+
+  /* =========================================
+     LAYOUT
+     ========================================= */
+  .dashboard {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    max-width: 1250px;
+    margin: 0 auto;
+    min-height: 100vh;
+    animation: fadeUp 1s ease-out forwards;
+  }
+
+  /* LEFT PANEL (Sidebar) */
+  .sidebar {
+    background-color: var(--bg-panel);
+    backdrop-filter: blur(12px); /* Glassmorphism */
+    -webkit-backdrop-filter: blur(12px);
+    border-right: 1px solid var(--border-color);
+    padding: 60px 30px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    text-align: center;
+    box-shadow: 5px 0 30px rgba(0,0,0,0.3);
+  }
+
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--accent-blue); }
+
+  h1 { font-size: 1.8rem; color: #fff; margin-bottom: 5px; letter-spacing: -0.5px; }
+  .subtitle { font-size: 0.85rem; color: var(--accent-teal); margin-bottom: 35px; text-transform: uppercase; letter-spacing: 1px;}
+
+  .contact-list {
+    list-style: none; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 40px; text-align: left;
+  }
+  .contact-list li { margin-bottom: 12px; display: flex; align-items: center; transition: 0.3s; }
+  .contact-list li:hover { color: #fff; transform: translateX(5px); }
+  .contact-list i { color: var(--accent-blue); width: 25px; font-style: normal; font-family: 'JetBrains Mono'; font-weight: bold;}
+
+  /* TECH STACK TAGS */
+  .stack-container { margin-bottom: 25px; text-align: left; }
+  .stack-title { font-size: 0.75rem; color: var(--accent-blue); text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; border-bottom: 1px solid rgba(0, 240, 255, 0.2); padding-bottom: 5px;}
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 4px 10px;
+    background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.2);
+    color: var(--text-light); border-radius: 4px; transition: 0.3s;
+  }
+  .tag:hover {
+    background: rgba(0, 240, 255, 0.15);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+  }
+
+  /* RIGHT PANEL (Main Content) */
+  .main-content { padding: 50px 60px; }
+  section { margin-bottom: 50px; }
+
+  .section-title {
+    font-size: 1.25rem; color: #fff; border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px; margin-bottom: 25px; display: flex; align-items: center;
+  }
+  .section-title span { color: var(--accent-teal); margin-right: 15px; font-size: 1.1rem; }
+
+  /* OBJECTIVE BOX */
+  .objective-box {
+    background: linear-gradient(90deg, rgba(0, 240, 255, 0.05) 0%, transparent 100%);
+    border-left: 3px solid var(--accent-blue); padding: 20px; border-radius: 0 8px 8px 0;
+    transition: 0.3s;
+  }
+  .objective-box:hover { 
+    border-left-color: var(--accent-teal); 
+    background: linear-gradient(90deg, rgba(0, 255, 170, 0.05) 0%, transparent 100%); 
+  }
+  .objective-box p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0; line-height: 1.7;}
+  .objective-box strong { color: var(--text-light); font-weight: 500;}
+
+  /* CARDS */
+  .card {
+    background: var(--bg-panel); border: 1px solid rgba(255,255,255,0.05);
+    padding: 24px; border-radius: 8px; margin-bottom: 20px; transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .card:hover { 
+    border-color: var(--accent-blue); 
+    background: var(--bg-panel-hover); 
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 240, 255, 0.1); 
+  }
+  
+  .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+  .card-title { font-size: 1.1rem; color: #fff; font-weight: 600; }
+  .card-subtitle { font-size: 0.9rem; color: var(--accent-teal); font-family: 'JetBrains Mono'; margin-top: 2px; }
+
+  ul.bulleted { list-style: none; margin-top: 15px; }
+  ul.bulleted li {
+    font-size: 0.95rem; color: var(--text-muted); margin-bottom: 10px; padding-left: 20px; position: relative;
+  }
+  ul.bulleted li::before { content: '►'; position: absolute; left: 0; color: var(--accent-blue); font-size: 0.7rem; top: 4px;}
+
+  /* GRIDS (Projects, Achievements, Extracurriculars) */
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  
+  .grid-card {
+    background: var(--bg-panel); border: 1px solid rgba(255,255,255,0.05);
+    padding: 20px; border-radius: 8px; display: flex; flex-direction: column; transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .grid-card:hover { 
+    border-color: var(--accent-teal); 
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 255, 170, 0.1);
+  }
+  .grid-card-title { font-size: 1.05rem; color: #fff; margin-bottom: 10px; font-weight: 600; display: flex; align-items: center; gap: 8px;}
+  .grid-card-title i { color: var(--accent-blue); font-style: normal; font-size: 1.2rem;}
+  .grid-card-desc { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px; flex-grow: 1; line-height: 1.6;}
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .dashboard { grid-template-columns: 1fr; }
+    .sidebar { height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border-color); padding: 40px 20px;}
+    .main-content { padding: 40px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="ambient-light light-1"></div>
+<div class="ambient-light light-2"></div>
+
+<div class="dashboard">
+  
+  <aside class="sidebar">
+
+    <h1>Niz Maria Roy</h1>
+    <div class="subtitle mono">Electronics & Computer Eng.</div>
+
+    <ul class="contact-list mono">
+      <li><i>@</i> <a href="mailto:nizmariaroy@gmail.com">nizmariaroy@gmail.com</a></li>
+      <li><i>#</i> +91 8590700812</li>
+      <li><i>in</i> <a href="https://www.linkedin.com/in/niz-maria-roy-822764292" target="_blank">LinkedIn Profile</a></li>
+      <li><i>></i> Kottayam, Kerala, India</li>
+    </ul>
+
+    <div class="stack-container">
+      <div class="stack-title">Programming & Logic</div>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">C</span>
+        <span class="tag">MATLAB</span>
+      </div>
+    </div>
+
+    <div class="stack-container">
+      <div class="stack-title">Embedded Systems & IoT</div>
+      <div class="tags">
+        <span class="tag">Arduino</span>
+        <span class="tag">NodeMCU / ESP8266</span>
+        <span class="tag">I2C / SPI / UART</span>
+        <span class="tag">MQTT</span>
+      </div>
+    </div>
+
+    <div class="stack-container">
+      <div class="stack-title">Data & Machine Learning</div>
+      <div class="tags">
+        <span class="tag">Machine Learning</span>
+        <span class="tag">Naive Bayes</span>
+        <span class="tag">Data Preprocessing</span>
+      </div>
+    </div>
+
+    <div class="stack-container">
+      <div class="stack-title">Hardware & Tools</div>
+      <div class="tags">
+        <span class="tag">KiCad (PCB Design)</span>
+        <span class="tag">Proteus Simulation</span>
+        <span class="tag">Android Studio</span>
+        <span class="tag">OpenRocket</span>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-content">
+
+    <section id="summary">
+      <h2 class="section-title"><span>[01]</span> About Me</h2>
+      <div class="objective-box">
+        <p>
+          <strong>Electronics and Computer Engineering undergraduate</strong> with a strong foundation in embedded systems, machine learning, and IoT architectures. Passionate about bridging hardware and software to develop innovative, data-driven solutions, with a specific focus on <strong>smart healthcare systems and medical device development</strong>. Dedicated to applying full-cycle engineering—from electronic circuit design and sensor integration to predictive modeling—to build assistive technologies and real-time monitoring applications that improve lives.
+        </p>
+      </div>
+    </section>
+
+    <section id="education">
+      <h2 class="section-title"><span>[02]</span> Education</h2>
+
+      <div class="card">
+        <div class="card-header" style="margin-bottom:0;">
+          <div>
+            <div class="card-title">B.Tech — Electronics & Computer Eng.</div>
+            <div class="card-subtitle">Saintgits College of Engineering (Autonomous)</div>
+          </div>
+          <div class="mono" style="font-size: 0.85rem; color: var(--text-muted);">2023 - Present</div>
+        </div>
+        <div style="margin-top: 10px; font-size: 0.95rem; color: var(--text-light);">
+          Current CGPA: <strong style="color: var(--accent-teal); font-family: 'JetBrains Mono';">8.24</strong>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div class="card" style="margin-bottom:0; padding: 20px;">
+          <div class="card-title" style="font-size: 1rem;">Higher Secondary (CBSE)</div>
+          <div class="card-subtitle" style="font-size: 0.85rem;">Placid Vidya Vihar (2022)</div>
+          <div style="margin-top: 8px; font-size: 0.9rem; color: var(--accent-blue); font-weight: 500;">Score: 84.6%</div>
+        </div>
+        <div class="card" style="margin-bottom:0; padding: 20px;">
+          <div class="card-title" style="font-size: 1rem;">Secondary School (CBSE)</div>
+          <div class="card-subtitle" style="font-size: 0.85rem;">Placid Vidya Vihar (2020)</div>
+          <div style="margin-top: 8px; font-size: 0.9rem; color: var(--accent-blue); font-weight: 500;">Score: 93.2%</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <h2 class="section-title"><span>[03]</span> Experience & Internships</h2>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">AI & Machine Learning Intern</div>
+            <div class="card-subtitle">BEO Software</div>
+          </div>
+        </div>
+        <ul class="bulleted">
+          <li>Engineered Python-based Machine Learning models using Naive Bayes classification to evaluate and categorize Arrhythmia datasets.</li>
+          <li>Optimized model performance through rigorous data preprocessing, SMOTE balancing, and SelectKBest feature selection techniques.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Space Science & Technology Intern</div>
+            <div class="card-subtitle">Indian Space Lab</div>
+          </div>
+        </div>
+        <ul class="bulleted">
+          <li>Acquired specialized hands-on training in Advanced Drone Technology, CanSat/CubeSat Satellite Systems, and Remote Sensing.</li>
+          <li>Applied data analysis and simulation techniques to study system performance in electronic and aerospace environments.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Android App Development Intern</div>
+            <div class="card-subtitle">Srishiti Innovative</div>
+          </div>
+        </div>
+        <ul class="bulleted">
+          <li>Architected and deployed 3 fully functional Android applications utilizing Android Studio.</li>
+          <li>Integrated Firebase real-time databases for seamless data management, while executing UI/UX design and rigorous debugging.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2 class="section-title"><span>[04]</span> Technical Projects</h2>
+      
+      <div class="grid-2">
+        <div class="grid-card">
+          <div class="grid-card-title">Smart Trolley System</div>
+          <div class="grid-card-desc">Automated retail shopping trolley integrating Arduino, RFID tags, and an I2C LCD display for real-time product scanning and checkout billing.</div>
+          <div class="tags"><span class="tag">Arduino</span><span class="tag">RFID</span></div>
+        </div>
+
+        <div class="grid-card">
+          <div class="grid-card-title">CO Gas Detection IoT Alert</div>
+          <div class="grid-card-desc">Environmental safety system utilizing an MQ-7 sensor and ESP8266. Detects hazardous carbon monoxide levels and triggers remote cloud alerts.</div>
+          <div class="tags"><span class="tag">ESP8266</span><span class="tag">IoT</span></div>
+        </div>
+
+        <div class="grid-card">
+          <div class="grid-card-title">Contactless Door Operator</div>
+          <div class="grid-card-desc">Low-power automation circuit utilizing an ultrasonic sensor and servo motor to detect human presence and actuate doors automatically.</div>
+          <div class="tags"><span class="tag">Sensors</span><span class="tag">Mechatronics</span></div>
+        </div>
+
+        <div class="grid-card">
+          <div class="grid-card-title">IoT Smart Doorbell</div>
+          <div class="grid-card-desc">Cloud-connected home automation system utilizing ESP8266 NodeMCU and the Blynk app to push remote notifications directly to mobile devices.</div>
+          <div class="tags"><span class="tag">NodeMCU</span><span class="tag">Blynk</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="achievements">
+      <h2 class="section-title"><span>[05]</span> Major Achievements</h2>
+      
+      <div class="grid-2">
+        <div class="grid-card">
+          <div class="grid-card-title"><i>✦</i> Tech Exhibition Recognition</div>
+          <div class="grid-card-desc">Showcased the "Smart Trolley System" at the Srishti College Tech Exhibition, recognized for the innovative application of RFID in retail automation.</div>
+        </div>
+        <div class="grid-card">
+          <div class="grid-card-title"><i>✦</i> Vega Aries Hardware Training</div>
+          <div class="grid-card-desc">Selected for advanced hands-on embedded systems training utilizing the Vega Aries Processor Board, exploring integration across 16 distinct sensors.</div>
+        </div>
+        <div class="grid-card">
+          <div class="grid-card-title"><i>✦</i> Aerospace Simulation</div>
+          <div class="grid-card-desc">Successfully designed and simulated a model rocket utilizing OpenRocket software, analyzing critical stability, thrust, and flight trajectory parameters.</div>
+        </div>
+        <div class="grid-card">
+          <div class="grid-card-title"><i>✦</i> National-Level Exposure</div>
+          <div class="grid-card-desc">Completed a highly selective National-Level Internship at the Indian Space Lab, gaining critical exposure to modern satellite and drone technologies.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="extracurricular">
+      <h2 class="section-title"><span>[06]</span> Extracurricular & Leadership</h2>
+      
+      <div class="grid-2">
+        <div class="grid-card">
+          <div class="grid-card-title"><i>❖</i> IEDC Branding & Marketing Head</div>
+          <div class="grid-card-desc">Led marketing strategies, social media promotions, and outreach campaigns. Collaborated cross-functionally to promote campus hackathons and entrepreneurship.</div>
+        </div>
+        <div class="grid-card">
+          <div class="grid-card-title"><i>❖</i> TEDx Curation Team Member</div>
+          <div class="grid-card-desc">Key contributor to content planning, speaker coordination, and overall event organization for the university's TEDx platform.</div>
+        </div>
+        <div class="grid-card">
+          <div class="grid-card-title"><i>❖</i> Tech Fests & Volunteering</div>
+          <div class="grid-card-desc">Actively engaged in college-level volunteering, supporting the coordination of major technical fests and student innovation initiatives.</div>
+        </div>
+        <div class="grid-card">
+          <div class="grid-card-title"><i>❖</i> Tech Exhibition Presenter</div>
+          <div class="grid-card-desc">Presented hardware projects at the Srishti College Exhibition. Engaged with peers and faculty to encourage technical innovation and cross-disciplinary collaboration.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="certifications" style="margin-bottom: 20px;">
+      <h2 class="section-title"><span>[07]</span> Certifications</h2>
+      <div class="tags" style="gap: 12px;">
+        <span class="tag" style="font-size: 0.85rem; padding: 8px 14px; border-color: rgba(0, 255, 170, 0.3);">Python (Univ. of Michigan)</span>
+        <span class="tag" style="font-size: 0.85rem; padding: 8px 14px; border-color: rgba(0, 255, 170, 0.3);">24-Hr National Gen.AI Hackathon (amFOSS)</span>
+        <span class="tag" style="font-size: 0.85rem; padding: 8px 14px; border-color: rgba(0, 255, 170, 0.3);">Young Innovators Programme (YIP 7.0)</span>
+        <span class="tag" style="font-size: 0.85rem; padding: 8px 14px; border-color: rgba(0, 255, 170, 0.3);">Linux Commands & Shell Scripting</span>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+</body>
+</html>
